@@ -31,7 +31,7 @@ namespace CreateCustomObjectExample
 
             xml.WriteStartElement("create");
 
-            xml.WriteStartElement("partner");
+            xml.WriteStartElement("test_object");
 
             xml.WriteElement("name", Name, true);
 
