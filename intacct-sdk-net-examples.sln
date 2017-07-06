@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickStart", "QuickStart\Qu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandlingExample", "ErrorHandlingExample\ErrorHandlingExample.csproj", "{BF0DAD02-13B9-4A1C-B593-B6D620925BD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateObjectExample", "CreateObjectExample\CreateObjectExample.csproj", "{DD292747-12EB-4F81-8BA7-010E960681DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateCustomObjectExample", "CreateCustomObjectExample\CreateCustomObjectExample.csproj", "{CA6394B8-A8E3-4906-B837-1A7638A402C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{BF0DAD02-13B9-4A1C-B593-B6D620925BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF0DAD02-13B9-4A1C-B593-B6D620925BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF0DAD02-13B9-4A1C-B593-B6D620925BD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD292747-12EB-4F81-8BA7-010E960681DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD292747-12EB-4F81-8BA7-010E960681DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD292747-12EB-4F81-8BA7-010E960681DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD292747-12EB-4F81-8BA7-010E960681DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6394B8-A8E3-4906-B837-1A7638A402C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6394B8-A8E3-4906-B837-1A7638A402C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6394B8-A8E3-4906-B837-1A7638A402C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6394B8-A8E3-4906-B837-1A7638A402C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
