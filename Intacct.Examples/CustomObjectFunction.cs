@@ -22,7 +22,7 @@ using NLog;
 
 namespace Intacct.Examples
 {
-    public static class CustomerObjectFunction
+    public static class CustomObjectFunction
     {
         public static void Run(ILogger logger)
         {

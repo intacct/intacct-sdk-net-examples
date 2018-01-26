@@ -24,14 +24,20 @@ namespace Intacct.Examples
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Pick an option to run:");
+            Console.WriteLine("Available examples:");
             Console.WriteLine(" 1 - Getting started");
             Console.WriteLine(" 2 - List vendors");
             Console.WriteLine(" 3 - CRUD customer");
             Console.WriteLine(" 4 - Custom object function");
-
-            if (int.TryParse(Console.ReadLine(), out int option))
+            Console.WriteLine(" 5 - Exit program");
+            
+            string option = "";
+            while (option != "5")
             {
+                Console.WriteLine("");
+                Console.Write("Enter a number to run the example > ");
+                option = Console.ReadLine()?.ToLower();
+                
                 ILogger logger = Bootstrap.Logger();
                 
                 try
@@ -40,17 +46,20 @@ namespace Intacct.Examples
                     {
                         switch (option)
                         {
-                            case 1:
+                            case "1":
                                 GettingStarted.Run(logger);
                                 break;
-                            case 2:
+                            case "2":
                                 ListVendors.Run(logger);
                                 break;
-                            case 3:
+                            case "3":
                                 CrudCustomer.Run(logger);
                                 break;
-                            case 4:
-                                CustomerObjectFunction.Run(logger);
+                            case "4":
+                                CustomObjectFunction.Run(logger);
+                                break;
+                            case "5":
+                                Console.WriteLine("Exiting...");
                                 break;
                             default:
                                 Console.WriteLine("Invalid option entered");
@@ -87,10 +96,6 @@ namespace Intacct.Examples
                     );
                     Console.WriteLine(e.GetType() + ": " + e.Message);
                 }
-            }
-            else
-            {
-                Console.WriteLine("Invalid option entered");
             }
         }
     }
