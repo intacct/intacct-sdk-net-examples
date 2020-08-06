@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Intacct.SDK;
-using Intacct.SDK.Functions;
 using Intacct.SDK.Functions.Common.NewQuery;
 using Intacct.SDK.Functions.Common.NewQuery.QueryFilter;
 using Intacct.SDK.Functions.Common.NewQuery.QueryOrderBy;
