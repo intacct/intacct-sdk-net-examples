@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2018 Sage Intacct, Inc.
+ * Copyright 2020 Sage Intacct, Inc.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy 
@@ -29,10 +29,11 @@ namespace Intacct.Examples
             Console.WriteLine(" 2 - List vendors");
             Console.WriteLine(" 3 - CRUD customer");
             Console.WriteLine(" 4 - Custom object function");
-            Console.WriteLine(" 5 - Exit program");
+            Console.WriteLine(" 5 - Query");
+            Console.WriteLine(" 6 - Exit program");
             
             string option = "";
-            while (option != "5")
+            while (option != "6")
             {
                 Console.WriteLine("");
                 Console.Write("Enter a number to run the example > ");
@@ -59,6 +60,9 @@ namespace Intacct.Examples
                                 CustomObjectFunction.Run(logger);
                                 break;
                             case "5":
+                                Query.Run(logger);
+                                break;
+                            case "6":
                                 Console.WriteLine("Exiting...");
                                 break;
                             default:
