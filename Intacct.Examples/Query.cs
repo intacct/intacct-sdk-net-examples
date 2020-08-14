@@ -51,7 +51,7 @@ namespace Intacct.Examples
             QueryFunction query = new QueryFunction()
             {
                 SelectFields = fields,
-                ObjectName = "ARINVOICE",
+                FromObject = "ARINVOICE",
                 Filter =  filter,
                 CaseInsensitive = true,
                 PageSize = 100,
