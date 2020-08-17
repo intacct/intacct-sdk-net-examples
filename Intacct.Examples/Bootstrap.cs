@@ -39,7 +39,7 @@ namespace Intacct.Examples
         {
             ClientConfig clientConfig = new ClientConfig()
             {
-                ProfileFile = Path.Combine(Directory.GetCurrentDirectory(), "credentials.ini"),
+                ProfileFile = Path.Combine(Directory.GetCurrentDirectory(), ".intacct/credentials.ini"),
                 Logger = logger,
             };
             OnlineClient client = new OnlineClient(clientConfig);
