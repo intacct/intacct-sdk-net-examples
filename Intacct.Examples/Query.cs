@@ -75,13 +75,13 @@ namespace Intacct.Examples
                 Console.WriteLine("CUSTOMERNAME: " + json.First["ARINVOICE"]["CUSTOMERNAME"].Value);
                 Console.WriteLine("SUM.TOTALDUE: " + json.First["ARINVOICE"]["SUM.TOTALDUE"].Value);
                 
-                Console.WriteLine("See the log file (logs/intacct.html) for the complete list of results.");
+                Console.WriteLine("See the log file (logs/intacct.log) for the complete list of results.");
             }
             else
             {
                 Console.WriteLine("The query executed, but no ARINVOICE objects met the query criteria.");
                 Console.WriteLine("Either modify the filter or comment it out from the query.");
-                Console.WriteLine("See the log file (logs/intacct.html) for the XML request.");
+                Console.WriteLine("See the log file (logs/intacct.log) for the XML request.");
             }
             
             logger.Debug(
