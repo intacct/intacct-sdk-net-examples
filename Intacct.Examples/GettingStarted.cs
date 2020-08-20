@@ -54,7 +54,7 @@ namespace Intacct.Examples
             dynamic json = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data));
             
             logger.Debug(
-                "Query successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
+                "Read successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
                 response.Authentication.CompanyId,
                 response.Authentication.UserId,
                 response.Control.ControlId,
