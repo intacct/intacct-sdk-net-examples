@@ -30,36 +30,40 @@ namespace Intacct.Examples
         {
             OnlineClient client = Bootstrap.Client(logger);
 
-            ReadByQuery query = new ReadByQuery()
+            Read read = new Read()
             {
-                ObjectName = "VENDOR",
-                PageSize = 1, // Keep the count to just 1 for the example
-                Fields =
-                {
+                ObjectName = "CUSTOMER",
+                Fields = {
                     "RECORDNO",
-                    "VENDORID",
-                    "NAME"
+                    "CUSTOMERID",
+                    "NAME",
+                },
+                Keys = {
+                    33 // Replace with the record number of a customer in your company
                 }
             };
 
-            logger.Info("Executing query to Intacct API");
+            logger.Info("Executing read to Intacct API");
 
-            Task<OnlineResponse> task = client.Execute(query);
+            Task<OnlineResponse> task = client.Execute(read);
             task.Wait();
+            
             OnlineResponse response = task.Result;
             Result result = response.Results[0];
 
+            dynamic json = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data));
+            
             logger.Debug(
-                "Query successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
+                "Read successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
                 response.Authentication.CompanyId,
                 response.Authentication.UserId,
                 response.Control.ControlId,
                 result.ControlId,
                 result.TotalCount,
-                JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data))
+                json
             );
 
-            Console.WriteLine("Success! Number of vendor objects found: " + result.TotalCount);
+            Console.WriteLine("Success! Found these customers: " + json);
         }
     }
 }

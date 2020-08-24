@@ -26,10 +26,10 @@ namespace Intacct.Examples
         {
             Console.WriteLine("Available examples:");
             Console.WriteLine(" 1 - Getting started");
-            Console.WriteLine(" 2 - List vendors");
-            Console.WriteLine(" 3 - CRUD customer");
-            Console.WriteLine(" 4 - Custom object function");
-            Console.WriteLine(" 5 - Query");
+            Console.WriteLine(" 2 - List AR invoices");
+            Console.WriteLine(" 3 - List vendors (legacy)");
+            Console.WriteLine(" 4 - CRUD customer");
+            Console.WriteLine(" 5 - Custom object function");
             Console.WriteLine(" 6 - Exit program");
             
             string option = "";
@@ -51,16 +51,16 @@ namespace Intacct.Examples
                                 GettingStarted.Run(logger);
                                 break;
                             case "2":
-                                ListVendors.Run(logger);
+                                Query.Run(logger);
                                 break;
                             case "3":
-                                CrudCustomer.Run(logger);
+                                ListVendors.Run(logger);
                                 break;
                             case "4":
-                                CustomObjectFunction.Run(logger);
+                                CrudCustomer.Run(logger);
                                 break;
                             case "5":
-                                Query.Run(logger);
+                                CustomObjectFunction.Run(logger);
                                 break;
                             case "6":
                                 Console.WriteLine("Exiting...");
