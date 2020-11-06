@@ -19,8 +19,10 @@ using Intacct.SDK;
 using Intacct.SDK.Functions.Common;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NLog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
 {
@@ -41,21 +43,33 @@ namespace Intacct.Examples
                 }
             };
 
-            logger.Info("Executing query to Intacct API");
+            logger.LogInformation("Executing query to Intacct API");
 
             Task<OnlineResponse> task = client.Execute(query);
             task.Wait();
             OnlineResponse response = task.Result;
             Result result = response.Results[0];
 
-            logger.Debug(
-                "Query successful - page 1 [ Total count={0}, Data={1} ]",
-                result.TotalCount,
-                JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data))
-            );
+            try
+            {
+                dynamic json = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data));
 
-            Console.WriteLine("Page 1 success! Number of vendor objects found: " + result.TotalCount + ". Number remaining: " + result.NumRemaining);
+                string jsonString = json.ToString();
+            
+                logger.LogDebug(
+                    "Query successful - page 1 [ Total count={0}, Data={1} ]",
+                    result.TotalCount,
+                    jsonString
+                );
 
+                Console.WriteLine("Page 1 success! Number of vendor objects found: " + result.TotalCount + ". Number remaining: " + result.NumRemaining);
+
+            } catch (NullReferenceException e)
+            {
+                logger.LogDebug("No response in Data. {0}", e);
+            }
+            
+            LogManager.Flush();
             int i = 1;
             while (result.NumRemaining > 0 && i <= 3 && !string.IsNullOrEmpty(result.ResultId))
             {
@@ -70,13 +84,28 @@ namespace Intacct.Examples
                 OnlineResponse responseMore = taskMore.Result;
                 Result resultMore = responseMore.Results[0];
 
-                logger.Debug(
-                    "Read More successful - page " + i + " [ Total remaining={0}, Data={1} ]",
-                    resultMore.NumRemaining,
-                    JsonConvert.DeserializeObject(JsonConvert.SerializeObject(resultMore.Data))
-                );
+                try
+                {
+                    dynamic resultMoreJson =
+                        JsonConvert.DeserializeObject(JsonConvert.SerializeObject(resultMore.Data));
+                    string resultMoreJsonString = resultMoreJson.ToString();
 
-                Console.WriteLine("Page " + i + " success! Records remaining: " + resultMore.NumRemaining);
+                    logger.LogDebug(
+                        "Read More successful - page " + i + " [ Total remaining={0}, Data={1} ]",
+                        resultMore.NumRemaining,
+                        resultMoreJsonString
+                    );
+
+                    Console.WriteLine("Page " + i + " success! Records remaining: " + resultMore.NumRemaining);
+                }
+                catch (NullReferenceException e)
+                {
+                    logger.LogDebug("No response in Data. {0}", e);
+                }
+                finally
+                {
+                    LogManager.Flush();
+                }
             }
             
             Console.WriteLine("Successfully read " + i + " pages");

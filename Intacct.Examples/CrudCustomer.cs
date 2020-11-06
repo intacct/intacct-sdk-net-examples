@@ -20,7 +20,7 @@ using Intacct.SDK.Functions.AccountsReceivable;
 using Intacct.SDK.Functions.Common;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
-using NLog;
+using Microsoft.Extensions.Logging;
 
 namespace Intacct.Examples
 {
@@ -30,7 +30,7 @@ namespace Intacct.Examples
         {
             OnlineClient client = Bootstrap.Client(logger);
 
-            logger.Info("Executing CRUD customer functions to API");
+            logger.LogInformation("Executing CRUD customer functions to API");
             
             CustomerCreate create = new CustomerCreate()
             {
