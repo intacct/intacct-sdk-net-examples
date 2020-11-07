@@ -23,8 +23,10 @@ using Intacct.SDK.Functions.Common.NewQuery.QueryOrderBy;
 using Intacct.SDK.Functions.Common.NewQuery.QuerySelect;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NLog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
 {
@@ -58,7 +60,7 @@ namespace Intacct.Examples
                 OrderBy = orders
             };
 
-            logger.Info("Executing query to Intacct API");
+            logger.LogInformation("Executing query to Intacct API");
 
             Task<OnlineResponse> task = client.Execute(query);
             task.Wait();
@@ -83,17 +85,29 @@ namespace Intacct.Examples
                 Console.WriteLine("Either modify the filter or comment it out from the query.");
                 Console.WriteLine("See the log file (logs/intacct.log) for the XML request.");
             }
-            
-            logger.Debug(
-                "Query successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
-                response.Authentication.CompanyId,
-                response.Authentication.UserId,
-                response.Control.ControlId,
-                result.ControlId,
-                result.TotalCount,
-                JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data))
-            );
 
+            try
+            {
+                string jsonString = json.ToString();
+
+                logger.LogDebug(
+                    "Query successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
+                    response.Authentication.CompanyId,
+                    response.Authentication.UserId,
+                    response.Control.ControlId,
+                    result.ControlId,
+                    result.TotalCount,
+                    jsonString
+                );
+            }
+            catch (NullReferenceException e)
+            {
+                logger.LogDebug("No response in Data. {0}", e);
+            }
+            finally
+            {
+                LogManager.Flush();
+            }
         }
     }
 }

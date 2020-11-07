@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using Intacct.SDK;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
-using NLog;
+using Microsoft.Extensions.Logging;
 
 namespace Intacct.Examples
 {
@@ -28,7 +28,7 @@ namespace Intacct.Examples
         {
             OnlineClient client = Bootstrap.Client(logger);
 
-            logger.Info("Executing create test object function to API");
+            logger.LogInformation("Executing create test object function to API");
             
             TestObjectCreate create = new TestObjectCreate()
             {

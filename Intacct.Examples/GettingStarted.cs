@@ -19,8 +19,10 @@ using Intacct.SDK;
 using Intacct.SDK.Functions.Common;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NLog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
 {
@@ -29,41 +31,51 @@ namespace Intacct.Examples
         public static void Run(ILogger logger)
         {
             OnlineClient client = Bootstrap.Client(logger);
-
+            
             Read read = new Read()
             {
                 ObjectName = "CUSTOMER",
-                Fields = {
+                Fields =
+                {
                     "RECORDNO",
                     "CUSTOMERID",
                     "NAME",
                 },
-                Keys = {
+                Keys =
+                {
                     33 // Replace with the record number of a customer in your company
                 }
             };
 
-            logger.Info("Executing read to Intacct API");
-
             Task<OnlineResponse> task = client.Execute(read);
             task.Wait();
-            
+
             OnlineResponse response = task.Result;
             Result result = response.Results[0];
 
             dynamic json = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(result.Data));
-            
-            logger.Debug(
-                "Read successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5} ]",
-                response.Authentication.CompanyId,
-                response.Authentication.UserId,
-                response.Control.ControlId,
-                result.ControlId,
-                result.TotalCount,
-                json
-            );
-
-            Console.WriteLine("Success! Found these customers: " + json);
+            try
+            {
+                string jsonString = json.ToString();
+                logger.LogDebug(
+                    "Read successful [ Company ID={0}, User ID={1}, Request control ID={2}, Function control ID={3}, Total count={4}, Data={5}]",
+                    response.Authentication.CompanyId,
+                    response.Authentication.UserId,
+                    response.Control.ControlId,
+                    result.ControlId,
+                    result.TotalCount,
+                    jsonString
+                );
+                Console.WriteLine("Success! Found these customers: " + json);
+            }
+            catch (NullReferenceException e)
+            {
+                logger.LogDebug("No response in Data. {0}", e);
+            }
+            finally
+            {
+                LogManager.Flush();
+            }
         }
     }
 }
