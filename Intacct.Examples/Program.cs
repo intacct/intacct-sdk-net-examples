@@ -18,7 +18,6 @@ using Intacct.SDK.Exceptions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NLog;
-using NLog.Extensions.Logging;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
@@ -27,8 +26,7 @@ namespace Intacct.Examples
     {
         static void Main(string[] args)
         {
-            ILogger logger = (new NLogLoggerFactory()).CreateLogger("Program");
-            
+            ILogger logger = Bootstrap.Logger("Program");
             Program p  = new Program();
             p.DoMenu(logger);
         }

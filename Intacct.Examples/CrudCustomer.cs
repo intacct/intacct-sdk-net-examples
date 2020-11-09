@@ -21,6 +21,8 @@ using Intacct.SDK.Functions.Common;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
 using Microsoft.Extensions.Logging;
+using NLog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
 {
@@ -86,6 +88,8 @@ namespace Intacct.Examples
             deleteTask.Wait();
             
             Console.WriteLine("Deleted customer ID " + customerId);
+
+            LogManager.Flush();
         }
     }
 }

@@ -19,6 +19,8 @@ using Intacct.SDK;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
 using Microsoft.Extensions.Logging;
+using NLog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
 {
@@ -43,6 +45,8 @@ namespace Intacct.Examples
             int recordNo = int.Parse(createResult.Data[0].Element("id").Value);
             
             Console.WriteLine("Created record ID " + recordNo.ToString());
+             
+            LogManager.Flush();
         }
     }
 }
