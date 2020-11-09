@@ -19,6 +19,8 @@ using Intacct.SDK;
 using Intacct.SDK.Xml;
 using Intacct.SDK.Xml.Response;
 using Microsoft.Extensions.Logging;
+using NLog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Intacct.Examples
 {
@@ -40,9 +42,20 @@ namespace Intacct.Examples
             OnlineResponse createResponse = createTask.Result;
             Result createResult = createResponse.Results[0];
 
-            int recordNo = int.Parse(createResult.Data[0].Element("id").Value);
-            
-            Console.WriteLine("Created record ID " + recordNo.ToString());
+            try
+            {
+                int recordNo = int.Parse(createResult.Data[0].Element("id").Value);
+
+                Console.WriteLine("Created record ID " + recordNo.ToString());
+            }
+            catch (NullReferenceException e)
+            {
+                logger.LogDebug("No response in Data. {0}", e);
+            }
+            finally
+            {
+                LogManager.Flush();
+            }
         }
     }
 }

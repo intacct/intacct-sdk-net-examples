@@ -27,7 +27,7 @@ namespace Intacct.Examples
     {
         static void Main(string[] args)
         {
-            ILogger logger = (new NLogLoggerFactory()).CreateLogger("Program");
+            ILogger logger = Bootstrap.Logger("Program");
             
             Program p  = new Program();
             p.DoMenu(logger);

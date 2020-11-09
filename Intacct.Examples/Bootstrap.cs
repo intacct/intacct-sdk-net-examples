@@ -16,11 +16,20 @@
 using System.IO;
 using Intacct.SDK;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace Intacct.Examples
 {
     public static class Bootstrap
     {
+
+        public static ILogger Logger(string loggerName)
+        {
+            ILogger logger = (new NLogLoggerFactory()).CreateLogger(loggerName);
+
+            return logger;
+        }
+
         public static OnlineClient Client(ILogger logger)
         {
             ClientConfig clientConfig = new ClientConfig()
